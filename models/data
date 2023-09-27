@@ -1,0 +1,15 @@
+INSERT INTO `financeplan` (`fid`, `dated`, `planname`, `status`, `price`, `dailyincome`, `days`) VALUES (NULL, '2023-08-28 20:48:01.000000', 'Normal', '1', '900', '36', '50');
+INSERT INTO `financeplan` (`fid`, `dated`, `planname`, `status`, `price`, `dailyincome`, `days`) VALUES (NULL, '2023-08-28 20:48:01.000000', 'Special', '1', '2600', '104', '50');
+INSERT INTO `financeplan` (`fid`, `dated`, `planname`, `status`, `price`, `dailyincome`, `days`) VALUES (NULL, '2023-08-28 20:48:01.000000', 'Silver', '1', '4900', '178', '55');
+INSERT INTO `financeplan` (`fid`, `dated`, `planname`, `status`, `price`, `dailyincome`, `days`) VALUES (NULL, '2023-08-28 20:48:01.000000', 'ProMax', '1', '9800', '355', '90');
+
+INSERT INTO `user` (`uid`, `dated`, `password`, `number`, `firstname`, `lastname`, `email`, `invitecode`, `refcode`, `image_file`, `admin`, `status`) VALUES (NULL, '2023-09-12 18:44:26.000000', 'admin', '1234567890', 'admin', 'admin', 'admin@a.com', NULL, 'inv123', 'default.jpg', '1', '1');
+INSERT INTO `userbank` (`bid`, `dated`, `bankname`, `bankaccnum`, `bankifsccode`, `user_id`) VALUES (NULL, '2023-08-28 20:52:09.000000', 'SBI', 'SBI1234567890', 'SBI12FC3', '1');
+INSERT INTO `sessiondata` (`sessionid`, `logintime`, `logouttime`, `ipaddr`, `useragent`, `user_id`) VALUES (NULL, '2023-08-28 20:54:09.000000', NULL, '192.168.1.1', 'Chrome', '1');
+INSERT INTO `userteam` (`user_id`, `fin_id`, `dated`, `status`) VALUES ('1', '1', '2023-08-28 20:54:58.000000', '1');
+INSERT INTO `wallet` (`wid`, `dated`, `walletamt`, `status`, `user_id`) VALUES (NULL, '2023-08-28 20:52:38.000000', '1000', '1', '1');
+
+INSERT INTO `transaction` (`txnid`, `dated`, `txnamt`, `txntype`, `status`, `wallet_id`) VALUES (NULL, '2023-09-11 19:12:14.000000', '1000', 'IN', '0', '1');
+INSERT INTO `transaction` (`txnid`, `dated`, `txnamt`, `txntype`, `status`, `wallet_id`) VALUES (NULL, '2023-09-14 19:15:14.000000', '190', 'OUT', '0', '1');
+INSERT INTO `transaction` (`txnid`, `dated`, `txnamt`, `txntype`, `status`, `wallet_id`) VALUES (NULL, '2023-09-16 19:17:14.000000', '40', 'OUT', '6', '1');
+INSERT INTO `transaction` (`txnid`, `dated`, `txnamt`, `txntype`, `status`, `wallet_id`) VALUES (NULL, '2023-09-18 19:22:14.000000', '150', 'OUT', '7', '1');
