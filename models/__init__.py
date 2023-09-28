@@ -4,7 +4,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.ext.declarative import declarative_base
 
-SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:12345678@localhost/catl'
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://uddvrzdwlzyv9qmy:UWAkLaeASbyod4A2brzg@bjak0ygef1mx1rbc9yfm-mysql.services.clever-cloud.com:3306/bjak0ygef1mx1rbc9yfm'
+# SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:12345678@localhost/catl'
 engine = create_engine(SQLALCHEMY_DATABASE_URI, connect_args={}, echo=False)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()

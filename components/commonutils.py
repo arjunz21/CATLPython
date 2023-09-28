@@ -6,19 +6,19 @@ import smtplib
 from itsdangerous import URLSafeSerializer
 from twilio.rest import Client
 from email.message import EmailMessage
+
 # Thanks! If there's an account associated with this email, we'll send the password reset instructions immediately.
 
 
 STATUS_CODE = {
     "0": "success", "1": "active", "2": "suspend", "3": "inactive",
-    "4": "creating", "5": "cancelled", "6": "failed", 
+    "4": "creating", "5": "cancelled", "6": "failed",
     "7": "pending", "8": "refunded", "9": "abandoned"
 }
 
-
 STATUS_COLOR = {
     "0": "success", "1": "primary", "2": "secondary", "3": "dark",
-    "4": "info", "5": "danger", "6": "danger", 
+    "4": "info", "5": "danger", "6": "danger",
     "7": "warning", "8": "secondary", "9": "danger"
 }
 
@@ -30,12 +30,12 @@ class Config:
     VERIFIED_NUMBER = "+918861582104"
     EMAIL_ADDRESS = 'arjun.gadvi@gmail.com'
     EMAIL_PASSWORD = 'samqsqzjbhhzescl'
-    #ACCSID = os.getenv('ACCSID')
-    #AUTHTOKEN = os.getenv('AUTHTOKEN')
-    #VERIFY_SID = os.getenv('VERIFY_SID')
-    #VERIFIED_NUMBER = os.getenv('VERIFIED_NUMBER')
-    #EMAIL_ADDRESS = os.getenv('EMAIL_ADDRESS')
-    #EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')    
+    # ACCSID = os.getenv('ACCSID')
+    # AUTHTOKEN = os.getenv('AUTHTOKEN')
+    # VERIFY_SID = os.getenv('VERIFY_SID')
+    # VERIFIED_NUMBER = os.getenv('VERIFIED_NUMBER')
+    # EMAIL_ADDRESS = os.getenv('EMAIL_ADDRESS')
+    # EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
     FROM_EMAIL = 'catl@noreply.com'
 
 
@@ -43,15 +43,15 @@ class SafeURL:
     auth_s = URLSafeSerializer("secret key", "auth")
     token = auth_s.dumps({"id": 5, "name": "itsdangerous"})
 
-    #print(token)
+    # print(token)
     # eyJpZCI6NSwibmFtZSI6Iml0c2Rhbmdlcm91cyJ9.6YP6T0BaO67XP--9UzTrmurXSmg
 
     data = auth_s.loads(token)
-    #print(data["name"]) # itsdangerous
+    # print(data["name"]) # itsdangerous
 
 
 class SendMail:
-        
+
     def sendEmail(self, toEmail, subject, body, file=None, link=None):
         msg = EmailMessage()
         msg['From'] = Config.FROM_EMAIL
@@ -66,7 +66,7 @@ class SendMail:
                 file_type = imghdr.what(f.name)
                 file_name = f.name
             msg.add_attachment(file_data, maintype='image', subtype=file_type, filename=file_name)
-        
+
         if link:
             msg.add_alternative(f"<a href='{link}' />", subtype='html')
 
@@ -83,18 +83,17 @@ class OTPGenerate:
         # self.auth_token = Config.authtoken
         # self.client=Client(self.accsid, self.auth_token)
 
-
     def sendOTP(self):
-        #self.n = random.randint(1111,9999)
-        #self.client.messages.create(to=[""], from_="", body=self.n)
-        verification = self.client.verify.v2.services(self.verify_sid).verifications.create(to=self.verified_number, channel="sms")
+        # self.n = random.randint(1111,9999)
+        # self.client.messages.create(to=[""], from_="", body=self.n)
+        verification = self.client.verify.v2.services(self.verify_sid).verifications.create(to=self.verified_number,
+                                                                                            channel="sms")
         print(verification.status)
-
 
 # sendmail = SendMail()
 # sendmail.sendEmail('arjun.gadvi@gmail.com', 'Grab the Offer', 'Offer Time is very limited')
-#otp = OTPGenerate()
-#otp.sendOTP()
+# otp = OTPGenerate()
+# otp.sendOTP()
 # Set environment variables for your credentials
 # Read more at http://twil.io/secure
 # otp_code = input("Please enter the OTP:")

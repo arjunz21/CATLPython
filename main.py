@@ -1,5 +1,6 @@
 import uvicorn
 import random
+from os import getenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 #from starlette.middleware import Middleware
@@ -132,3 +133,7 @@ async def read_users_me(current_user: str = Depends(authenticapi.get_current_act
 #                 port=443, host='fedora', reload = True, reload_dirs = ["html_files"],
 #                 ssl_keyfile="/workshop/react/InvestApp/investreact/ssl/catlkey.pem",
 #                 ssl_certfile="/workshop/react/InvestApp/investreact/ssl/catlcert.pem")
+
+if __name__ == '__main__':
+    port = int(getenv("PORT", 8000))
+    uvicorn.run("main:app",port=port, host='0.0.0.0', reload = True, reload_dirs = ["html_files"])
