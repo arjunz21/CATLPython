@@ -1,4 +1,4 @@
-import uvicorn
+# import uvicorn
 import random
 from os import getenv
 from fastapi import FastAPI
