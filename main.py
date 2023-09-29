@@ -20,9 +20,8 @@ Base.metadata.create_all(bind=engine)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['http://fedora:5173', 'http://fedora', 'http://fedora:80',
-                   'http://localhost', 'http://localhost:80',
-                   'http://192.168.29.159:5173', 'http://206.189.80.59:22010',
+    allow_origins=['http://0.0.0.0', 'http://0.0.0.0:80',
+                   'https://catlweb.onrender.com/',
                    'http://objective-violet-87944.pktriot.net:22010', ],
     allow_credentials=True, allow_methods=['*'], allow_headers=['*']
 )
