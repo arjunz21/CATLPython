@@ -2,6 +2,7 @@
 import random
 from os import getenv
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 #from starlette.middleware import Middleware
 #from starlette.middleware.cors import CORSMiddleware
@@ -30,6 +31,7 @@ app.include_router(bank_router)
 app.include_router(finplan_router)
 app.include_router(wallet_router)
 app.include_router(userfinteam_router)
+app.mount("/", StaticFiles(directory="static"), name="static")
 
 from routes import Annotated, Depends, Session, status, timedelta, HTTPException
 from routes import Token, User, UserModel, UserInDB, models, authenticapi
