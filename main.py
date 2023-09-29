@@ -21,7 +21,7 @@ Base.metadata.create_all(bind=engine)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=['http://0.0.0.0', 'http://0.0.0.0:80',
-                   'https://catlweb.onrender.com/',
+                   'https://catlweb.onrender.com',
                    'http://objective-violet-87944.pktriot.net:22010', ],
     allow_credentials=True, allow_methods=['*'], allow_headers=['*']
 )
