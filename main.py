@@ -21,7 +21,8 @@ Base.metadata.create_all(bind=engine)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['http://0.0.0.0', 'http://0.0.0.0:80',
+    allow_origins=['http://0.0.0.0', 'http://0.0.0.0:8000',
+                   'http://fedora', 'http://fedora:8000',
                    'https://catlweb.onrender.com', 'https://catlweb.onrender.com:443',
                    'http://objective-violet-87944.pktriot.net:22010', ],
     allow_credentials=True, allow_methods=['*'], allow_headers=['*']
@@ -31,7 +32,7 @@ app.include_router(bank_router)
 app.include_router(finplan_router)
 app.include_router(wallet_router)
 app.include_router(userfinteam_router)
-app.mount("/", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 from routes import Annotated, Depends, Session, status, timedelta, HTTPException
 from routes import Token, User, UserModel, UserInDB, models, authenticapi
