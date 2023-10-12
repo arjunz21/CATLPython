@@ -2,6 +2,7 @@
 import random
 from os import getenv
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 #from starlette.middleware import Middleware
@@ -37,6 +38,11 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 from routes import Annotated, Depends, Session, status, timedelta, HTTPException
 from routes import Token, User, UserModel, UserInDB, models, authenticapi
 from routes import OAuth2PasswordRequestForm, ACCESS_TOKEN_EXPIRE_MINUTES
+
+
+@app.get("/", response_class=RedirectResponse)
+async def mainapp():
+    return "/static/index.html"
 
 
 # UserModel start
