@@ -13,6 +13,7 @@ from routes.bank_routes import bank_router
 from routes.finplan_routes import finplan_router
 from routes.wallet_routes import wallet_router
 from routes.userfinteam_routes import userfinteam_router
+from routes.admidashroutes import admindash_router
 from components.commonutils import SendMail
 from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 
@@ -33,6 +34,7 @@ app.include_router(bank_router)
 app.include_router(finplan_router)
 app.include_router(wallet_router)
 app.include_router(userfinteam_router)
+app.include_router(admindash_router)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 from routes import Annotated, Depends, Session, status, timedelta, HTTPException
