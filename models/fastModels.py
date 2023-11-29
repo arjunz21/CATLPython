@@ -33,6 +33,7 @@ class User(BaseModel):
     status: int | None = 1
     admin: bool | None = False
     disabled: bool | None = False
+    walletamt: str | None = "0"
 
     class Config:
         orm_mode: True

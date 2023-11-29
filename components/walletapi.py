@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from models.dbModels import UserModel, Walletmodel
+from models.dbModels import UserModel, Walletmodel, Txnmodel
 from models.fastModels import UserWallet
 from components.commonutils import STATUS_CODE, STATUS_COLOR
 from sqlalchemy.orm import Session
@@ -49,3 +49,26 @@ def delete_wallet(db: Session, email: str, wid: int):
     db.query(Walletmodel).filter_by(wid=wid).delete()
     db.commit()
     return {"status": "success"}
+
+def recharge_wallet(db: Session, email: str, amt: str):
+    userM = db.query(UserModel).filter_by(email=email).first()
+
+    userM.wallets[0].walletamt = str((int(userM.wallets[0].walletamt)+int(amt)))
+    db.commit()
+
+    db.add(Txnmodel(txnamt=amt, txntype="IN", status=0, wallet_id=userM.wallets[0].wid))
+    db.commit()
+
+    return {"status": "success", "amt":amt, "walletAmt":userM.wallets[0].walletamt}
+
+
+def withdraw_wallet(db: Session, email: str, amt: str):
+    userM = db.query(UserModel).filter_by(email=email).first()
+
+    userM.wallets[0].walletamt = str((int(userM.wallets[0].walletamt)-int(amt)))
+    db.commit()
+
+    db.add(Txnmodel(txnamt=amt, txntype="OUT", status=0, wallet_id=userM.wallets[0].wid))
+    db.commit()
+
+    return {"status": "success", "amt":amt, "walletAmt":userM.wallets[0].walletamt}

@@ -1,5 +1,5 @@
 from routes import Session, Depends, models
-from routes import UserInDB, UserFinTeamModel
+from routes import UserInDB
 from fastapi import APIRouter
 from components import authenticapi, userfinteamapi
 

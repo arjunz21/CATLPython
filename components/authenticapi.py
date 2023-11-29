@@ -44,7 +44,8 @@ def get_user(db: Session, email: str):
         raise HTTPException(status_code=404, detail=f"User {email} does not exist")
     user = {"email": userModel.email, "firstname": userModel.firstname, "refcode": userModel.refcode,
             "lastname": userModel.lastname, "number": userModel.number, "invitecode": userModel.invitecode,
-            "disabled": False, "imagefile": userModel.image_file, "admin": userModel.admin}
+            "disabled": False, "imagefile": userModel.image_file, "admin": userModel.admin,
+            "walletamt": str(userModel.wallets[0].walletamt)}
     return User(**user)
 
 

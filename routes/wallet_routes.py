@@ -40,4 +40,17 @@ def delete_user_wallet(wid: int, db: Session = Depends(models.getdb),
                        current_user: str = Depends(authenticapi.get_current_active_user)):
     return walletapi.delete_wallet(db, current_user, wid)
 
+
+@wallet_router.get("/recharge/{amt}")
+def recharge_user_wallet(amt: str, db: Session = Depends(models.getdb),
+                       current_user: str = Depends(authenticapi.get_current_active_user)):
+    return walletapi.recharge_wallet(db, current_user, amt)
+
+
+@wallet_router.get("/withdraw/{amt}")
+def withdraw_user_wallet(amt: str, db: Session = Depends(models.getdb),
+                       current_user: str = Depends(authenticapi.get_current_active_user)):
+    return walletapi.withdraw_wallet(db, current_user, amt)
+
+
 # WalletModel End
