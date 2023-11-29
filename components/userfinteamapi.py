@@ -15,7 +15,10 @@ def create_user_finteam(db: Session, email: str, finplan: str):
     if not finplanModel:
         raise HTTPException(status_code=404, detail=f"Finance Plan {finplan} does not  exist")
     
-    db.add(Txnmodel(txnamt=finplanModel.price, txntype="IN", status=7, wallet_id=userM.wallets[0].wid))
+    userM.wallets[0].walletamt = str((int(userM.wallets[0].walletamt)-int(finplanModel.price))*0.09)
+    db.commit()
+
+    db.add(Txnmodel(txnamt=finplanModel.price, txntype="OUT", status=7, wallet_id=userM.wallets[0].wid))
     db.commit()
     
     userM.finplans.append(finplanModel)
@@ -34,7 +37,6 @@ def get_user_finteam(db: Session, email: str):
                 fints.append(
                     {"plan": fin.planname, "number": member.number, "email": member.email,
                     "name": member.firstname + ' ' + member.lastname, "level": "1", "dated": "03-06 21:53"})
-    print(fints)
     return fints
 
 

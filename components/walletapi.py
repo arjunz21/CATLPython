@@ -12,9 +12,7 @@ def create_wallet(db: Session, email: str, wallet: UserWallet):
     walletModel = db.query(Walletmodel).filter_by(wid=wallet.wid).first()
     if walletModel:
         raise HTTPException(status_code=404, detail=f"Wallet {wallet.wid} exist choose another")
-    walletToDB = Walletmodel(
-        walletamt=wallet.walletamt,
-        status=wallet.status)
+    walletToDB = Walletmodel(walletamt=wallet.walletamt, status=wallet.status)
     userM = db.query(UserModel).filter_by(email=email).first()
     walletToDB.user = userM
     db.add(walletToDB)
