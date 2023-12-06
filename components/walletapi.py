@@ -65,10 +65,13 @@ def recharge_wallet(db: Session, email: str, amt: str):
 def withdraw_wallet(db: Session, email: str, amt: str):
     userM = db.query(UserModel).filter_by(email=email).first()
 
-    userM.wallets[0].walletamt = str((int(userM.wallets[0].walletamt)-int(amt)))
-    db.commit()
+    if (int(userM.wallets[0].walletamt)) < 0:
+        raise HTTPException(status_code=404, detail=f"Insufficient Wallet Amount {userM.wallets[0].walletamt}, Please Recharge...")
+    else:
+        userM.wallets[0].walletamt = str((int(userM.wallets[0].walletamt)-int(amt)))
+        db.commit()
 
-    db.add(Txnmodel(txnamt=amt, txntype="OUT", status=0, wallet_id=userM.wallets[0].wid))
-    db.commit()
+        db.add(Txnmodel(txnamt=amt, txntype="OUT", status=0, wallet_id=userM.wallets[0].wid))
+        db.commit()
 
     return {"status": "success", "amt":amt, "walletAmt":userM.wallets[0].walletamt}

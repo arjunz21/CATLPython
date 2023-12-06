@@ -15,15 +15,18 @@ def create_user_finteam(db: Session, email: str, finplan: str):
     if not finplanModel:
         raise HTTPException(status_code=404, detail=f"Finance Plan {finplan} does not  exist")
     
-    userM.wallets[0].walletamt = str((int(userM.wallets[0].walletamt)-int(finplanModel.price))*0.09)
-    db.commit()
+    if (int(userM.wallets[0].walletamt)) < 0 or (int(userM.wallets[0].walletamt) < int(finplanModel.price)):
+        raise HTTPException(status_code=404, detail=f"Insufficient Wallet Amount {userM.wallets[0].walletamt}, Please Recharge...")
+    else:
+        userM.wallets[0].walletamt = str((int(userM.wallets[0].walletamt)-int(finplanModel.price))*0.09)
+        db.commit()
 
-    db.add(Txnmodel(txnamt=finplanModel.price, txntype="OUT", status=7, wallet_id=userM.wallets[0].wid))
-    db.commit()
-    
-    userM.finplans.append(finplanModel)
-    db.commit()
-    db.refresh(userM)
+        db.add(Txnmodel(txnamt=finplanModel.price, txntype="OUT", status=7, wallet_id=userM.wallets[0].wid))
+        db.commit()
+        
+        userM.finplans.append(finplanModel)
+        db.commit()
+        db.refresh(userM)
     return {"status": "success"}
 
 
