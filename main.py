@@ -47,6 +47,11 @@ async def mainapp():
     return "/static/index.html"
 
 
+@app.get("/payapi", response_class=RedirectResponse)
+async def mainapp():
+    return "/static/payapi/pay.html"
+
+
 # UserModel Start
 @app.post("/api/token", response_model=Token, tags=["Authentication"])
 async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
