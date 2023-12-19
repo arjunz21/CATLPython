@@ -47,7 +47,7 @@ async def mainapp():
     return "/static/index.html"
 
 
-# UserModel start
+# UserModel Start
 @app.post("/api/token", response_model=Token, tags=["Authentication"])
 async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
                                  db: Session = Depends(models.getdb)):
@@ -87,9 +87,7 @@ async def generate_otp(email):
     The CATL Team
     """
     sendmail = SendMail()
-    sendmail.sendEmail(email,
-                       'Welcome to CATL Group - OTP Confirmation',
-                       subject)
+    sendmail.sendEmail(email, 'Welcome to CATL Group - OTP Confirmation', subject)
     return {"email": email, "code": otpCode}
 
 

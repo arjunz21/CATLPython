@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Form
 
 from components import authenticapi, walletapi
 from routes import Session, Depends, models
@@ -41,16 +41,17 @@ def delete_user_wallet(wid: int, db: Session = Depends(models.getdb),
     return walletapi.delete_wallet(db, current_user, wid)
 
 
-@wallet_router.get("/recharge/{amt}")
-def recharge_user_wallet(amt: str, db: Session = Depends(models.getdb),
-                       current_user: str = Depends(authenticapi.get_current_active_user)):
-    return walletapi.recharge_wallet(db, current_user, amt)
+@wallet_router.post("/recharge/{wamt}/{amt}")
+def recharge_user_wallet(wamt: str, amt: str, db: Session = Depends(models.getdb),
+                       current_user: str = Depends(authenticapi.get_current_active_user),
+                       rcptno: str = Form(...), mob: str = Form(...)):
+    return walletapi.recharge_wallet(db, current_user, "recharge", wamt, amt, rcptno, mob)
 
 
-@wallet_router.get("/withdraw/{amt}")
-def withdraw_user_wallet(amt: str, db: Session = Depends(models.getdb),
-                       current_user: str = Depends(authenticapi.get_current_active_user)):
-    return walletapi.withdraw_wallet(db, current_user, amt)
-
+@wallet_router.post("/withdraw/{wamt}/{amt}")
+def withdraw_user_wallet(wamt: str, amt: str, db: Session = Depends(models.getdb),
+                         current_user: str = Depends(authenticapi.get_current_active_user),
+                         rcptno: str = Form(...), mob: str = Form(...)):
+    return walletapi.withdraw_wallet(db, current_user, "withdraw", wamt, amt, rcptno, mob)
 
 # WalletModel End

@@ -50,28 +50,30 @@ def delete_wallet(db: Session, email: str, wid: int):
     db.commit()
     return {"status": "success"}
 
-def recharge_wallet(db: Session, email: str, amt: str):
+def recharge_wallet(db: Session, email: str, summary: str, wamt: str, amt: str, rcptno: str, mob: str):
     userM = db.query(UserModel).filter_by(email=email).first()
 
     userM.wallets[0].walletamt = str((int(userM.wallets[0].walletamt)+int(amt)))
     db.commit()
 
-    db.add(Txnmodel(txnamt=amt, txntype="IN", status=0, wallet_id=userM.wallets[0].wid))
+    db.add(Txnmodel(txnamt=amt, txntype="IN", rcptno=rcptno, summary=summary,
+                    number=mob, status=0, wallet_id=userM.wallets[0].wid))
     db.commit()
 
     return {"status": "success", "amt":amt, "walletAmt":userM.wallets[0].walletamt}
 
 
-def withdraw_wallet(db: Session, email: str, amt: str):
+def withdraw_wallet(db: Session, email: str, summary: str, wamt: str, amt: str, rcptno: str, mob: str):
     userM = db.query(UserModel).filter_by(email=email).first()
 
-    if (int(userM.wallets[0].walletamt)) < 0:
+    if ((int(userM.wallets[0].walletamt)) < 0) or ((int(userM.wallets[0].walletamt) < int(amt))):
         raise HTTPException(status_code=404, detail=f"Insufficient Wallet Amount {userM.wallets[0].walletamt}, Please Recharge...")
     else:
         userM.wallets[0].walletamt = str((int(userM.wallets[0].walletamt)-int(amt)))
         db.commit()
 
-        db.add(Txnmodel(txnamt=amt, txntype="OUT", status=0, wallet_id=userM.wallets[0].wid))
+        db.add(Txnmodel(txnamt=amt, txntype="OUT", summary=summary,
+                        rcptno=rcptno, number=mob, status=0, wallet_id=userM.wallets[0].wid))
         db.commit()
 
     return {"status": "success", "amt":amt, "walletAmt":userM.wallets[0].walletamt}

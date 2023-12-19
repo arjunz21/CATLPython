@@ -27,16 +27,16 @@ class Config:
     ACCSID = 'AC98ed2d67c489696cdc3365232fa90bba'
     AUTHTOKEN = 'c5a51d7efb48938dca5229a46870ca86'
     VERIFY_SID = "VAe0b2044421ec253a5d6f2de99bc36a6f"
-    VERIFIED_NUMBER = "+918861582104"
-    EMAIL_ADDRESS = 'arjun.gadvi@gmail.com'
-    EMAIL_PASSWORD = 'samqsqzjbhhzescl'
+    VERIFIED_NUMBER = "+919272024751"
+    EMAIL_ADDRESS = 'cetlapp06@gmail.com'
+    EMAIL_PASSWORD = 'focpcfowjpbjwbvd'
     # ACCSID = os.getenv('ACCSID')
     # AUTHTOKEN = os.getenv('AUTHTOKEN')
     # VERIFY_SID = os.getenv('VERIFY_SID')
     # VERIFIED_NUMBER = os.getenv('VERIFIED_NUMBER')
     # EMAIL_ADDRESS = os.getenv('EMAIL_ADDRESS')
     # EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
-    FROM_EMAIL = 'catl@noreply.com'
+    FROM_EMAIL = 'cetl@noreply.com'
 
 
 class SafeURL:

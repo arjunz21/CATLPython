@@ -1,11 +1,15 @@
+import psycopg2
 from typing import Annotated
 from fastapi import Depends
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.ext.declarative import declarative_base
 
-SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://uddvrzdwlzyv9qmy:UWAkLaeASbyod4A2brzg@bjak0ygef1mx1rbc9yfm-mysql.services.clever-cloud.com:3306/bjak0ygef1mx1rbc9yfm'
-# SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:12345678@localhost/catl'
+
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://uddvrzdwlzy9qmy:UWAkLaeASbyod4A2brzg@bjak0ygef1mx1rbc9yfm-mysql.services.clever-cloud.com:3306/bjak0ygef1mx1rbc9yfm'
+#SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:12345678@localhost/catl'
+#PGPASSWORD=nwzSXdiu]]iuo][p['i[[;. kimlmp j'- ik,mbgn g3umHFPfcUWMXyZ1qiLRdTcmdI psql -h dpg-clta81da73kc73efr980-a.oregon-postgres.render.com -U catluser catldb
+#SQLALCHEMY_DATABASE_URI = 'postgresql://catluser:nwzSXdg3umHFPfcUWMXyZ1qiLRdTcmdI@dpg-clta81da73kc73efr980-a.oregon-postgres.render.com:5432/catldb'
 engine = create_engine(SQLALCHEMY_DATABASE_URI, connect_args={}, echo=False)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
