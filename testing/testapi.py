@@ -1,29 +1,16 @@
-from fastapi import Depends, FastAPI, HTTPException, status, Form
-from pydantic import BaseModel
+from fastapi import FastAPI
+from fastapi.testclient import TestClient
 
 app = FastAPI()
 
+@app.get("/")
+async def home():
+    return {"message": "OK"}
 
-class User(BaseModel):
-    username: str
-    password: str
+client = TestClient(app)
 
+def test_home():
+    res = client.get("/")
 
-class Data(BaseModel):
-    fname: str
-    lname: str
-
-
-@app.get("/test/{item_id}")
-async def test(item_id: str, query: int = 1):
-    return {"hello": item_id, "query": query}
-
-
-@app.post("/create")
-async def create(data: Data):
-    return {"data": data}
-
-
-@app.post("/submit/", response_model=User)
-async def submit(nm: str = Form(...), pwd: str = Form(...)):
-    return User(username=nm, password=pwd)
+    assert res.status_code == 200
+    assert res.json() == {"message": "OK"}
