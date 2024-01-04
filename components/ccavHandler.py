@@ -14,8 +14,7 @@ def res(encResp):
 	data = data.replace('&','</td></tr><tr><td>')
 	data = data + '</td></tr></table>'
 	
-	html = '''\
-	<html>
+	html = '''<html>
 		<head>
 			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 			<title>Response Handler</title>
@@ -27,10 +26,8 @@ def res(encResp):
 				$response
 			</center>
 			<br>
-			
 		</body>
-	</html>
-	'''
+	</html>'''
 	
 	fin = Template(html).safe_substitute(response=data)
 	return fin
@@ -47,7 +44,7 @@ def encrypt(plainText,workingKey):
 	plainText = pad(plainText)
 	encDigest = hashlib.md5(bytes(workingKey, 'utf-8'))
 	enc_cipher = AES.new(encDigest.digest(), AES.MODE_CBC, iv)
-	encryptedText = enc_cipher.encrypt(plainText).encode('hex')
+	encryptedText = enc_cipher.encrypt(plainText)
 	return encryptedText
 
 
