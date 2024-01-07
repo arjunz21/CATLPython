@@ -14,15 +14,18 @@ templates = Jinja2Templates(directory="templates")
 accessCode = 'AVAN40KL46BB14NABB'
 workingKey = '97DC997FD024D2081D32B75072CAB101'
 
+
 @ccav_router.get('/', response_class=HTMLResponse)
 async def webpay(request: Request):
-    return templates.TemplateResponse("dataFrom.htm", {"request":request})
+    return templates.TemplateResponse("dataFrom.htm", {"request": request})
+
 
 @ccav_router.post('/Response')
 async def payResponse(request: Request):
     plainText = res(request.form().get('encResp'))
     print("res: ", plainText)
     return plainText
+
 
 @ccav_router.post('/ReqestHandler', response_class=HTMLResponse)
 async def payRequest(request: Request):
@@ -57,15 +60,12 @@ async def payRequest(request: Request):
     p_integration_type = req.get('integration_type')
     p_promo_code = req.get('promo_code')
     p_customer_identifier = req.get('customer_identifier')
-    
-    merchant_data='merchant_id='+p_merchant_id+'&'+'order_id='+p_order_id + '&' + "currency=" + p_currency + '&' + 'amount=' + p_amount+'&'+'redirect_url='+p_redirect_url+'&'+'cancel_url='+p_cancel_url+'&'+'language='+p_language+'&'+'billing_name='+p_billing_name+'&'+'billing_address='+p_billing_address+'&'+'billing_city='+p_billing_city+'&'+'billing_state='+p_billing_state+'&'+'billing_zip='+p_billing_zip+'&'+'billing_country='+p_billing_country+'&'+'billing_tel='+p_billing_tel+'&'+'billing_email='+p_billing_email+'&'+'delivery_name='+p_delivery_name+'&'+'delivery_address='+p_delivery_address+'&'+'delivery_city='+p_delivery_city+'&'+'delivery_state='+p_delivery_state+'&'+'delivery_zip='+p_delivery_zip+'&'+'delivery_country='+p_delivery_country+'&'+'delivery_tel='+p_delivery_tel+'&'+'merchant_param1='+p_merchant_param1+'&'+'merchant_param2='+p_merchant_param2+'&'+'merchant_param3='+p_merchant_param3+'&'+'merchant_param4='+p_merchant_param4+'&'+'merchant_param5='+p_merchant_param5+'&'+'integration_type='+p_integration_type+'&'+'promo_code='+p_promo_code+'&'+'customer_identifier='+p_customer_identifier+'&'
-    print("mer:", merchant_data)
-    encryption = encrypt(merchant_data,workingKey)
-    # fin = Template(html).safe_substitute(mid=p_merchant_id,encReq=encryption,xscode=accessCode)
-    # return templates.TemplateResponse('merPage.htm', {"request":req, "mid":p_merchant_id,"encReq":merchant_data, "xscode":accessCode})
-    
 
-    return f"""
+    merchant_data = 'merchant_id=' + p_merchant_id + '&' + 'order_id=' + p_order_id + '&' + "currency=" + p_currency + '&' + 'amount=' + p_amount + '&' + 'redirect_url=' + p_redirect_url + '&' + 'cancel_url=' + p_cancel_url + '&' + 'language=' + p_language + '&' + 'billing_name=' + p_billing_name + '&' + 'billing_address=' + p_billing_address + '&' + 'billing_city=' + p_billing_city + '&' + 'billing_state=' + p_billing_state + '&' + 'billing_zip=' + p_billing_zip + '&' + 'billing_country=' + p_billing_country + '&' + 'billing_tel=' + p_billing_tel + '&' + 'billing_email=' + p_billing_email + '&' + 'delivery_name=' + p_delivery_name + '&' + 'delivery_address=' + p_delivery_address + '&' + 'delivery_city=' + p_delivery_city + '&' + 'delivery_state=' + p_delivery_state + '&' + 'delivery_zip=' + p_delivery_zip + '&' + 'delivery_country=' + p_delivery_country + '&' + 'delivery_tel=' + p_delivery_tel + '&' + 'merchant_param1=' + p_merchant_param1 + '&' + 'merchant_param2=' + p_merchant_param2 + '&' + 'merchant_param3=' + p_merchant_param3 + '&' + 'merchant_param4=' + p_merchant_param4 + '&' + 'merchant_param5=' + p_merchant_param5 + '&' + 'integration_type=' + p_integration_type + '&' + 'promo_code=' + p_promo_code + '&' + 'customer_identifier=' + p_customer_identifier + '&'
+    # print("mer:", merchant_data)
+    encryption = encrypt(merchant_data, workingKey)
+
+    html = f"""
         <html>
         <head>
             <title>Sub-merchant checkout page</title>
@@ -80,7 +80,7 @@ async def payRequest(request: Request):
                 scrolling="No"
                 frameborder="0"
                 id="paymentFrame"
-                src="https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction&merchant_id={p_merchant_id}&encRequest={merchant_data}&access_code={accessCode}">
+                src="https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction&merchant_id={p_merchant_id}&encRequest={encryption}&access_code={accessCode}">
             </iframe>
             </center>
 
@@ -95,3 +95,7 @@ async def payRequest(request: Request):
             </script>
         </body>
         </html>"""
+
+    fin = Template(html).safe_substitute(mid=p_merchant_id, encReq=encryption, xscode=accessCode)
+    return fin
+    # return templates.TemplateResponse('merPage.htm', {"request":req, "mid":p_merchant_id,"encReq":merchant_data, "xscode":accessCode})
