@@ -135,6 +135,7 @@ async def read_users_me(current_user: str = Depends(authenticapi.get_current_act
 async def read_users_me(current_user: str = Depends(authenticapi.get_current_active_user)):
     return current_user
 
+
 # UserModel end
 
 
