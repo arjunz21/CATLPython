@@ -42,8 +42,7 @@ def encrypt(plainText, workingKey):
 def decrypt(cipherText, workingKey):
     return ccavenue.decrypt(cipherText)
 
-d = {   "merchant_id":"3098153",
-        "order_id":"123456",
+d = {   "order_id":"123456",
         "currency":"INR",
         "amount":"1.00",
         "redirect_url":"/ResponseHandler",
