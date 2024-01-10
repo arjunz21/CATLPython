@@ -51,7 +51,7 @@ def encrypt(plainText, workingKey):
     return hexlify(enc_cipher.encrypt(plainText.encode("utf-8"))).decode('utf-8')
 
 def decrypt(cipherText, workingKey):
-    iv = '\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'
+    iv = '\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'.encode("utf-8")
     encryptedText = unhexlify(cipherText)
     bytearrayWorkingKey = bytearray()
     bytearrayWorkingKey.extend(map(ord, workingKey))
@@ -60,5 +60,4 @@ def decrypt(cipherText, workingKey):
 
 e = encrypt("hello", "hi")
 print(e)
-#print(decrypt(e, "hi"))
-#104996c0e0cbf620bc8762f1d362d0b6
+print(decrypt(e, "hi"))
