@@ -61,7 +61,39 @@ async def payRequest(request: Request):
     p_promo_code = req.get('promo_code')
     p_customer_identifier = req.get('customer_identifier')
 
-    merchant_data = 'merchant_id=' + p_merchant_id + '&' + 'order_id=' + p_order_id + '&' + "currency=" + p_currency + '&' + 'amount=' + p_amount + '&' + 'redirect_url=' + p_redirect_url + '&' + 'cancel_url=' + p_cancel_url + '&' + 'language=' + p_language + '&' + 'billing_name=' + p_billing_name + '&' + 'billing_address=' + p_billing_address + '&' + 'billing_city=' + p_billing_city + '&' + 'billing_state=' + p_billing_state + '&' + 'billing_zip=' + p_billing_zip + '&' + 'billing_country=' + p_billing_country + '&' + 'billing_tel=' + p_billing_tel + '&' + 'billing_email=' + p_billing_email + '&' + 'delivery_name=' + p_delivery_name + '&' + 'delivery_address=' + p_delivery_address + '&' + 'delivery_city=' + p_delivery_city + '&' + 'delivery_state=' + p_delivery_state + '&' + 'delivery_zip=' + p_delivery_zip + '&' + 'delivery_country=' + p_delivery_country + '&' + 'delivery_tel=' + p_delivery_tel + '&' + 'merchant_param1=' + p_merchant_param1 + '&' + 'merchant_param2=' + p_merchant_param2 + '&' + 'merchant_param3=' + p_merchant_param3 + '&' + 'merchant_param4=' + p_merchant_param4 + '&' + 'merchant_param5=' + p_merchant_param5 + '&' + 'integration_type=' + p_integration_type + '&' + 'promo_code=' + p_promo_code + '&' + 'customer_identifier=' + p_customer_identifier + '&'
+    #merchant_data = 'merchant_id=' + p_merchant_id + '&' + 'order_id=' + p_order_id + '&' + "currency=" + p_currency + '&' + 'amount=' + p_amount + '&' + 'redirect_url=' + p_redirect_url + '&' + 'cancel_url=' + p_cancel_url + '&' + 'language=' + p_language + '&' + 'billing_name=' + p_billing_name + '&' + 'billing_address=' + p_billing_address + '&' + 'billing_city=' + p_billing_city + '&' + 'billing_state=' + p_billing_state + '&' + 'billing_zip=' + p_billing_zip + '&' + 'billing_country=' + p_billing_country + '&' + 'billing_tel=' + p_billing_tel + '&' + 'billing_email=' + p_billing_email + '&' + 'delivery_name=' + p_delivery_name + '&' + 'delivery_address=' + p_delivery_address + '&' + 'delivery_city=' + p_delivery_city + '&' + 'delivery_state=' + p_delivery_state + '&' + 'delivery_zip=' + p_delivery_zip + '&' + 'delivery_country=' + p_delivery_country + '&' + 'delivery_tel=' + p_delivery_tel + '&' + 'merchant_param1=' + p_merchant_param1 + '&' + 'merchant_param2=' + p_merchant_param2 + '&' + 'merchant_param3=' + p_merchant_param3 + '&' + 'merchant_param4=' + p_merchant_param4 + '&' + 'merchant_param5=' + p_merchant_param5 + '&' + 'integration_type=' + p_integration_type + '&' + 'promo_code=' + p_promo_code + '&' + 'customer_identifier=' + p_customer_identifier + '&'
+    merchant_data = {
+   "merchant_id":"3098154",
+   "order_id":"123456",
+   "currency":"INR",
+   "amount":"1.00",
+   "redirect_url":"https://catl.onrender.com/api/ccav/ResponseHandler",
+   "cancel_url":"https://catl.onrender.com/api/ccav/ResponseHandler",
+   "language":"EN",
+   "billing_name":"Peter",
+   "billing_address":"Santacruz",
+   "billing_city":"Mumbai",
+   "billing_state":"MH",
+   "billing_zip":"400054",
+   "billing_country":"India",
+   "billing_tel":"0229874789",
+   "billing_email":"testing@domain.com",
+   "delivery_name":"Sam",
+   "delivery_address":"Vile Parle",
+   "delivery_city":"Mumbai",
+   "delivery_state":"Maharashtra",
+   "delivery_zip":"400038",
+   "delivery_country":"India",
+   "delivery_tel":"0221234321",
+   "merchant_param1":"additional Info.",
+   "merchant_param2":"additional Info.",
+   "merchant_param3":"additional Info.",
+   "merchant_param4":"additional Info.",
+   "merchant_param5":"additional Info.",
+   "integration_type":"iframe_normal",
+   "promo_code":"",
+   "customer_identifier":""
+}
     # print("mer:", merchant_data)
     encryption = encrypt(merchant_data, workingKey)
     print(req)
