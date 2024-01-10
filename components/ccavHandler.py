@@ -1,8 +1,10 @@
 #!/usr/bin/python
-from hashlib import md5
+#from hashlib import md5
 from Crypto.Cipher import AES
 from string import Template
-from Crypto.Util.Padding import pad, unpad
+#from Crypto.Util.Padding import pad, unpad
+import hashlib
+from binascii import hexlify, unhexlify
 
 def res(encResp):
     '''Please put in the 32 bit alphanumeric key in quotes provided by CCAvenues.'''
@@ -32,33 +34,31 @@ def res(encResp):
     return fin
 
 
-def pade(data):
+def pad(data):
     length = 16 - (len(data) % 16)
-    data += chr(length) * length
+    data += chr(length)*length
     return data
 
+def unpad(data):
+    return data[0:-ord(data[-1])] 
 
 def encrypt(plainText, workingKey):
-    iv = b'\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'
-    plainText = pade(plainText)
-    #plainText = pad(plainText.encode('utf-8'), AES.block_size)
-    encDigest = md5()
-    encDigest.update(workingKey.encode())
-    enc_cipher = AES.new(encDigest.digest(), AES.MODE_CBC, iv)
-    encryptedText = enc_cipher.encrypt(plainText.encode())
-    return encryptedText.hex()
-
+    iv = '\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'.encode("utf-8")
+    plainText = pad(plainText)
+    bytearrayWorkingKey = bytearray()
+    bytearrayWorkingKey.extend(map(ord, workingKey))
+    enc_cipher = AES.new(hashlib.md5(bytearrayWorkingKey).digest(), AES.MODE_CBC, iv)
+    return hexlify(enc_cipher.encrypt(plainText.encode("utf-8"))).decode('utf-8')
 
 def decrypt(cipherText, workingKey):
-    iv = b'\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'
-    decDigest = md5()
-    decDigest.update(workingKey.encode())
-    encryptedText = bytes.fromhex(cipherText)
-    dec_cipher = AES.new(decDigest.digest(), AES.MODE_CBC, iv)
-    decryptedText = unpad(dec_cipher.decrypt(encryptedText), AES.block_size)
-    return decryptedText.decode('utf-8')
+    iv = '\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'
+    encryptedText = unhexlify(cipherText)
+    bytearrayWorkingKey = bytearray()
+    bytearrayWorkingKey.extend(map(ord, workingKey))
+    decCipher = AES.new(hashlib.md5(bytearrayWorkingKey).digest(), AES.MODE_CBC, iv)
+    return unpad(decCipher.decrypt(encryptedText).decode('utf-8'))
 
 e = encrypt("hello", "hi")
 print(e)
-print(decrypt(e, "hi"))
+#print(decrypt(e, "hi"))
 #104996c0e0cbf620bc8762f1d362d0b6
