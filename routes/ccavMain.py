@@ -65,7 +65,7 @@ async def payRequest(request: Request):
     # print("mer:", merchant_data)
     encryption = encrypt(merchant_data, workingKey)
 
-    html = f"""
+    html = '''\
         <html>
         <head>
             <title>Sub-merchant checkout page</title>
@@ -74,28 +74,22 @@ async def payRequest(request: Request):
         <body>
             <center>
             <!-- width required mininmum 482px -->
-            <iframe
-                width="482"
-                height="500"
-                scrolling="No"
-                frameborder="0"
-                id="paymentFrame"
-                src="https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction&merchant_id={p_merchant_id}&encRequest={encryption}&access_code={accessCode}">
-            </iframe>
+                <iframe  width="482" height="500" scrolling="No" frameborder="0"  id="paymentFrame" src="https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction&merchant_id=$mid&encRequest=$encReq&access_code=$xscode">
+                </iframe>
             </center>
-
+            
             <script type="text/javascript">
-            $(document).ready(function () {{
-                $("iframe#paymentFrame").load(function () {{
-                window.addEventListener( "message",
-                    function (e) {{
-                        $("#paymentFrame").css("height", e.data["newHeight"] + "px"); }}, false );
-                }});
-            }});
+                $(document).ready(function(){
+                    $('iframe#paymentFrame').load(function() {
+                        window.addEventListener('message', function(e) {
+                            $("#paymentFrame").css("height",e.data['newHeight']+'px'); 	 
+                        }, false);
+                    }); 
+                });
             </script>
         </body>
-        </html>"""
-
-    fin = Template(html).safe_substitute(mid=p_merchant_id, encReq=encryption, xscode=accessCode)
+        </html>
+        '''
+    fin = Template(html).safe_substitute(mid=p_merchant_id,encReq=encryption,xscode=accessCode)
     return fin
     # return templates.TemplateResponse('merPage.htm', {"request":req, "mid":p_merchant_id,"encReq":merchant_data, "xscode":accessCode})
