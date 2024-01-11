@@ -33,13 +33,9 @@ async def payRequest(request: Request):
     p_merchant_id = req.get('merchant_id')
 
     merchant_data = {
-   "merchant_id":req.get('merchant_id'),
+   "customer_identifier":req.get('customer_identifier'),
    "order_id":req.get('order_id'),
-   "currency":'INR',
    "amount":req.get('amount'),
-   "redirect_url":'https://catl.onrender.com/api/ccav/ResponseHandler',
-   "cancel_url":'https://catl.onrender.com/api/ccav/ResponseHandler',
-   "language":'EN',
    "billing_name":req.get('billing_name'),
    "billing_address":req.get('billing_address'),
    "billing_city":req.get('billing_city'),
@@ -48,8 +44,12 @@ async def payRequest(request: Request):
    "billing_country":req.get('billing_country'),
    "billing_tel":req.get('billing_tel'),
    "billing_email":req.get('billing_email'),
+   "language":'EN',
+   "merchant_id":'3098153',
    "integration_type":'iframe_normal',
-   "customer_identifier":req.get('customer_identifier') }
+   "currency":'INR',
+   "redirect_url":'https://catl.onrender.com/api/ccav/ResponseHandler',
+   "cancel_url":'https://catl.onrender.com/api/ccav/ResponseHandler' }
     
     encryption = encrypt(merchant_data, workingKey)
     print(merchant_data)
@@ -57,10 +57,11 @@ async def payRequest(request: Request):
     html = '''\
         <html>
         <head>
-            <title>Sub-merchant checkout page</title>
+            <title>Payment Page</title>
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         </head>
         <body>
+            <center class="bg-dark p-3 rounded-5 mt-2 text-center text-white"><h1>Payment Page</h1></center>
             <center>
             <!-- width required mininmum 482px -->
                 <iframe  width="850" height="550" scrolling="Yes" frameborder="0"  id="paymentFrame" src="https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction&merchant_id=$mid&encRequest=$encReq&access_code=$xscode">
