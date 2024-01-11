@@ -35,11 +35,11 @@ async def payRequest(request: Request):
     merchant_data = {
    "merchant_id":req.get('merchant_id'),
    "order_id":req.get('order_id'),
-   "currency":req.get('currency'),
+   "currency":'INR',
    "amount":req.get('amount'),
-   "redirect_url":req.get('redirect_url'),
-   "cancel_url":req.get('cancel_url'),
-   "language":req.get('language'),
+   "redirect_url":'https://catl.onrender.com/api/ccav/ResponseHandler',
+   "cancel_url":'https://catl.onrender.com/api/ccav/ResponseHandler',
+   "language":'EN',
    "billing_name":req.get('billing_name'),
    "billing_address":req.get('billing_address'),
    "billing_city":req.get('billing_city'),
@@ -48,20 +48,7 @@ async def payRequest(request: Request):
    "billing_country":req.get('billing_country'),
    "billing_tel":req.get('billing_tel'),
    "billing_email":req.get('billing_email'),
-   "delivery_name":req.get('delivery_name'),
-   "delivery_address":req.get('delivery_address'),
-   "delivery_city":req.get('delivery_city'),
-   "delivery_state":req.get('delivery_state'),
-   "delivery_zip":req.get('delivery_zip'),
-   "delivery_country":req.get('delivery_country'),
-   "delivery_tel":req.get('delivery_tel'),
-   "merchant_param1":req.get('merchant_param1'),
-   "merchant_param2":req.get('merchant_param2'),
-   "merchant_param3":req.get('merchant_param3'),
-   "merchant_param4":req.get('merchant_param4'),
-   "merchant_param5":req.get('merchant_param5'),
-   "integration_type":req.get('integration_type'),
-   "promo_code":req.get('promo_code'),
+   "integration_type":'iframe_normal',
    "customer_identifier":req.get('customer_identifier') }
     
     encryption = encrypt(merchant_data, workingKey)
@@ -76,7 +63,7 @@ async def payRequest(request: Request):
         <body>
             <center>
             <!-- width required mininmum 482px -->
-                <iframe  width="482" height="500" scrolling="No" frameborder="0"  id="paymentFrame" src="https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction&merchant_id=$mid&encRequest=$encReq&access_code=$xscode">
+                <iframe  width="850" height="550" scrolling="Yes" frameborder="0"  id="paymentFrame" src="https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction&merchant_id=$mid&encRequest=$encReq&access_code=$xscode">
                 </iframe>
             </center>
             
