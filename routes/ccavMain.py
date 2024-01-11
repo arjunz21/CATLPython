@@ -20,7 +20,7 @@ async def webpay(request: Request):
     return templates.TemplateResponse("dataFrom.htm", {"request": request})
 
 
-@ccav_router.post('/Response')
+@ccav_router.post('/ResponseHandler', response_class=HTMLResponse)
 async def payResponse(request: Request):
     plainText = res(request.form().get('encResp'))
     print("res: ", plainText)
