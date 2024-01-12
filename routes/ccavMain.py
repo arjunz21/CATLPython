@@ -48,7 +48,6 @@ async def payRequest(request: Request):
    "language":'EN',   
    "integration_type":'iframe_normal',
    "currency":'INR' }
-    mid = '3098153'
     
     encryption = encrypt(merchant_data, workingKey)
     print(merchant_data)
@@ -79,4 +78,4 @@ async def payRequest(request: Request):
         </body>
         </html>
         '''
-    return Template(html).safe_substitute(mid=p_merchant_id,encReq=encryption,xscode=accessCode)
+    return Template(html).safe_substitute(mid='3098153',encReq=encryption,xscode=accessCode)
