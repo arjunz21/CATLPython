@@ -17,7 +17,7 @@ workingKey = '97DC997FD024D2081D32B75072CAB101'
 
 @ccav_router.get('/', response_class=HTMLResponse)
 async def webpay(request: Request):
-    return templates.TemplateResponse("dataFrom.html", {"request": request})
+    return templates.TemplateResponse("ccpay.html", {"request": request})
 
 
 @ccav_router.post('/ResponseHandler', response_class=HTMLResponse)
