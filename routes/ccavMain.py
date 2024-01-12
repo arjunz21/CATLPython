@@ -81,6 +81,5 @@ async def payRequest(request: Request):
         </body>
         </html>
         '''
-    print("html:",html)
     fin = Template(html).safe_substitute(mid=p_merchant_id,encReq=encryption,xscode=accessCode)
     return fin
