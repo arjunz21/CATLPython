@@ -22,7 +22,8 @@ async def webpay(request: Request):
 
 @ccav_router.post('/ResponseHandler', response_class=HTMLResponse)
 async def payResponse(request: Request):
-    plainText = res(request.form().get('encResp'))
+    #plainText = res(request.form().get('encResp'))
+    plainText = res(request.form())
     print("res: ", plainText)
     return plainText
 
@@ -80,5 +81,6 @@ async def payRequest(request: Request):
         </body>
         </html>
         '''
+    print("html:",html)
     fin = Template(html).safe_substitute(mid=p_merchant_id,encReq=encryption,xscode=accessCode)
     return fin
