@@ -49,6 +49,7 @@ async def mainapp():
     return "/static/index.html"
 
 @app.post("/", response_class=RedirectResponse)
+@app.post("/cancel", response_class=RedirectResponse)
 async def mainapp():
     return "/static/index.html"
 
