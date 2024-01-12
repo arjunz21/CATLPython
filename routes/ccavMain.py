@@ -17,7 +17,7 @@ workingKey = '97DC997FD024D2081D32B75072CAB101'
 
 @ccav_router.get('/', response_class=HTMLResponse)
 async def webpay(request: Request):
-    return templates.TemplateResponse("dataFrom.htm", {"request": request})
+    return templates.TemplateResponse("dataFrom.html", {"request": request})
 
 
 @ccav_router.post('/ResponseHandler', response_class=HTMLResponse)
@@ -45,12 +45,10 @@ async def payRequest(request: Request):
    "billing_country":req.get('billing_country'),
    "billing_tel":req.get('billing_tel'),
    "billing_email":req.get('billing_email'),
-   "language":'EN',
-   "merchant_id":'3098153',
+   "language":'EN',   
    "integration_type":'iframe_normal',
-   "currency":'INR',
-   "redirect_url":'https://catl.onrender.com/api/ccav/ResponseHandler',
-   "cancel_url":'https://catl.onrender.com/api/ccav/ResponseHandler' }
+   "currency":'INR' }
+    mid = '3098153'
     
     encryption = encrypt(merchant_data, workingKey)
     print(merchant_data)
@@ -81,5 +79,4 @@ async def payRequest(request: Request):
         </body>
         </html>
         '''
-    fin = Template(html).safe_substitute(mid=p_merchant_id,encReq=encryption,xscode=accessCode)
-    return fin
+    return Template(html).safe_substitute(mid=p_merchant_id,encReq=encryption,xscode=accessCode)
