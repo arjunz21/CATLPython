@@ -48,6 +48,9 @@ from routes import OAuth2PasswordRequestForm, ACCESS_TOKEN_EXPIRE_MINUTES
 async def mainapp():
     return "/static/index.html"
 
+@app.post("/", response_class=RedirectResponse)
+async def mainapp():
+    return "/static/index.html"
 
 # UserModel Start
 @app.post("/api/token", response_model=Token, tags=["Authentication"])
