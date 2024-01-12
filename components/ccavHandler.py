@@ -7,7 +7,7 @@ import hashlib
 from binascii import hexlify, unhexlify
 from pay_ccavenue import CCAvenue
 
-ccavenue = CCAvenue("97DC997FD024D2081D32B75072CAB101", "AVAN40KL46BB14NABB", "3098153", "https://catl.onrender.com/api/ccav/ResponseHandler", "https://catl.onrender.com/api/ccav/ResponseHandler")
+ccavenue = CCAvenue("97DC997FD024D2081D32B75072CAB101", "AVAN40KL46BB14NABB", "3098153", "https://catl.onrender.com/", "https://catl.onrender.com/thanks")
 
 def res(encResp):
     '''Please put in the 32 bit alphanumeric key in quotes provided by CCAvenues.'''
