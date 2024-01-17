@@ -26,7 +26,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=['http://0.0.0.0', 'http://0.0.0.0:8000',
                    'http://fedora', 'http://fedora:8000',
-                   'https://catlweb.onrender.com', 'https://catlweb.onrender.com:443',
+                   'https://catl.onrender.com', 'https://catl.onrender.com:443',
                    'http://objective-violet-87944.pktriot.net:22010', ],
     allow_credentials=True, allow_methods=['*'], allow_headers=['*']
 )
@@ -48,10 +48,6 @@ from routes import OAuth2PasswordRequestForm, ACCESS_TOKEN_EXPIRE_MINUTES
 async def mainapp():
     return "/static/index.html"
 
-@app.post("/", response_class=RedirectResponse)
-@app.post("/cancel", response_class=RedirectResponse)
-async def mainapp():
-    return "/static/index.html"
 
 # UserModel Start
 @app.post("/api/token", response_model=Token, tags=["Authentication"])
