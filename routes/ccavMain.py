@@ -62,7 +62,7 @@ async def payRequest(request: Request):
             <center class="bg-dark p-3 rounded-5 mt-2 text-center text-white"><h1>Payment Page</h1></center>
             <center>
             <!-- width required mininmum 482px -->
-                <iframe  width="850" height="550" scrolling="Yes" frameborder="0"  id="paymentFrame" src="https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction&merchant_id=$mid&encRequest=$encReq&access_code=$xscode">
+                <iframe  width="850" height="550" scrolling="Yes" frameborder="0"  id="paymentFrame" src="https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction&merchant_id=$mid&encRequest=$encReq&access_code=$xscode">
                 </iframe>
             </center>
             
